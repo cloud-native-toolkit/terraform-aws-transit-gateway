@@ -1,5 +1,5 @@
 #!/bin/bash
-Gateway_name="$(cat terraform.tfvars | grep  "name_prefix" | awk -F'=' '{print $2}' | sed 's/[""]//g'| sed 's/[[:space:]]//g')"
+Gateway_name="$(cat terraform.tfvars | grep  -w "name_prefix" | awk -F'=' '{print $2}' | sed 's/[""]//g'| sed 's/[[:space:]]//g')"
 REGION="$(cat terraform.tfvars | grep  "region" | awk -F'=' '{print $2}' | sed 's/[""]//g' | sed 's/[[:space:]]//g')"
 
 echo "Gateway_name: ${Gateway_name}"
@@ -16,7 +16,7 @@ Gateway_ID=$(aws ec2 describe-transit-gateways --region $REGION| grep $Gateway_n
 
 echo "alias_name: ${Gateway_name}"
 if [[(${Gateway_ID} == "") ]]; then
-  echo "VPN NOT found "
+  echo "Gateway NOT found "
    exit 1
 else
    TransitGatewayId="$(aws ec2 describe-transit-gateways --region $REGION | grep TransitGatewayId | awk -F':' '{print $2}' | sed 's/[""]//g' | sed 's/[[:space:]]//g')"
