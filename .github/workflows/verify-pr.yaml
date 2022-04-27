@@ -12,7 +12,11 @@ jobs:
     if: ${{ !contains( github.event.pull_request.labels.*.name, 'skip ci' ) }}
     uses: ./.github/workflows/verify-workflow.yaml
     secrets:
-      IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
-
+      TF_VAR_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #TF_VAR_enabled: ${{ matrix.enabled }}
+  
   verifyMetadata:
     uses: cloud-native-toolkit/action-workflows/.github/workflows/verify-module-metadata.yaml@v1

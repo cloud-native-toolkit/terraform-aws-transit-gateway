@@ -1,15 +1,27 @@
 terraform {
+  required_version = ">= 0.15.0"
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
 }
 
-module setup_clis {
+/*
+module "setup_clis" {
   source = "github.com/cloud-native-toolkit/terraform-util-clis.git"
+  clis   = ["yq", "jq", "rosa"]
+  # clis   = ["helm", "rosa"]
 
-  bin_dir = "${path.cwd}/test_bin_dir"
-  clis = ["ibmcloud"]
 }
 
-resource local_file bin_dir {
-  filename = "${path.cwd}/.bin_dir"
-
-  content = module.setup_clis.bin_dir
+resource "null_resource" "setup_clis" {
+  depends_on = [
+    module.setup_clis
+  ]
+  provisioner "local-exec" {
+    #command = "echo -n '${module.clis.bin_dir}' > .bin_dir"
+    command = "echo ${module.setup_clis.bin_dir} > .bin_dir"
+  }
 }
+*/
