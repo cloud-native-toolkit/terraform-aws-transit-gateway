@@ -1,11 +1,27 @@
 name: aws-transit-gateway
 type: terraform
-description: Module to provision transit-gateway on aws
+description: Module to provision vpn service on aws
+cloudProvider: aws
 tags:
-  - tools
-  - devops
+    - infrastructure
+    - networking
+    - aws
 versions:
   - platforms: []
-    dependencies: []
-    variables: []
-cloudProvider: aws
+    providers:
+      - name: aws
+        source: "hashicorp/aws"
+    dependencies:
+      - id: aws-vpc
+        refs: 
+          - source: github.com/cloud-native-toolkit/terraform-aws-vpc
+            version: ">= 1.0.0"  
+      - id: aws-vpc-subnets
+        refs: 
+          - source: github.com/cloud-native-toolkit/terraform-aws-vpc-subnets
+            version: ">= 1.0.0"                
+    variables:
+    - name: subnet_ids
+      moduleRef:
+        id: aws-vpc-subnets
+        output: subnet_ids
