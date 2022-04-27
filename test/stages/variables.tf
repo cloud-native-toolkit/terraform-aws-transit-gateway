@@ -196,11 +196,7 @@ variable "logs_retention" {
   default     = 365
   description = "Retention in days for CloudWatch Log Group"
 }
-variable "subnet_ids" {
-  type        = list(string)
-  description = "To create cluster in existing VPC, public and private Subnet ids should be given ."
-  default     = [""]
-}
+
 variable "public_subnet_ids" {
   type        = list(string)
   description = "To create cluster in existing VPC, public and private Subnet ids should be given ."

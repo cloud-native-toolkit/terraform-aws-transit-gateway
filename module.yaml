@@ -22,6 +22,3 @@ versions:
             version: ">= 1.0.0"                
     variables:
     - name: subnet_ids
-      moduleRef:
-        id: aws-vpc-subnets
-        output: subnet_ids
