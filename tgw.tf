@@ -8,8 +8,7 @@ locals {
 
   resource_group_name = var.resource_group_name != "" && var.resource_group_name != null ? var.resource_group_name : "default"
   name_prefix     = var.name_prefix != "" && var.name_prefix != null ? var.name_prefix : local.resource_group_name
-  name_gateway        = var.name_gateway != "" ? var.name_gateway : "${local.name_prefix}"
-
+  name_gateway        = (var.name != "" && var.name != null) ? var.name : "${local.name_prefix}-transit-gateway"
 
   lookup_transit_gateway = var.create_transit_gateway
   
