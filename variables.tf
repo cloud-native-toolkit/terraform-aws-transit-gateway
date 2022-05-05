@@ -63,25 +63,6 @@ variable "vpc_attachment_ipv6_support" {
   description = "Whether resource attachments automatically propagate routes to the default propagation route table. Valid values: `disable`, `enable`. Default value: `enable`"
 }
 
-variable "config" {
-  type = map(object({
-    vpc_id                            = string
-    vpc_cidr                          = string
-    subnet_ids                        = set(string)
-    subnet_route_table_ids            = set(string)
-    route_to_cidr_blocks              = set(string)
-    transit_gateway_vpc_attachment_id = string
-    number_subnet_route               = number
-    static_routes = set(object({
-      blackhole              = bool
-      destination_cidr_block = string
-    }))
-  }))
-
-  description = "Configuration for VPC attachments, Transit Gateway routes, and subnet routes"
-  default     = null
-}
-
 variable "existing_transit_gateway_id" {
   type        = string
   default     = null
