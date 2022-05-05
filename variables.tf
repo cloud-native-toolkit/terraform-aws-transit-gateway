@@ -63,6 +63,7 @@ variable "vpc_attachment_ipv6_support" {
   description = "Whether resource attachments automatically propagate routes to the default propagation route table. Valid values: `disable`, `enable`. Default value: `enable`"
 }
 
+
 variable "existing_transit_gateway_id" {
   type        = string
   default     = null
