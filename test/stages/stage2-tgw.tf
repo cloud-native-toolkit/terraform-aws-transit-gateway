@@ -56,4 +56,6 @@ module "menage_aws_tgw" {
   internal_cidr_menage        = var.internal_cidr_menage
   internal_cidr               = var.internal_cidr
   internal_cidr_work          = var.internal_cidr_work
+  resource_group_name         = var.resource_group_name
+  name_prefix                 = var.name_prefix
 }
