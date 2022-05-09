@@ -214,14 +214,3 @@ variable "number_subnet_route_work" {
   default = 9
   description = "Transit Gateway ID"
 }
-variable "subnet_ids" {
-  type        = list(string)
-  description = "To create cluster in existing VPC, public and private Subnet ids should be given ."
-  default     = [""]
-}
-
-variable "vpc_id" {
-  type        = string
-  description = "To create cluster in existing VPC"
-  default     = ""
-}
