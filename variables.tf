@@ -219,3 +219,9 @@ variable "subnet_ids" {
   description = "To create cluster in existing VPC, public and private Subnet ids should be given ."
   default     = [""]
 }
+
+variable "vpc_id" {
+  type        = string
+  description = "To create cluster in existing VPC"
+  default     = ""
+}
