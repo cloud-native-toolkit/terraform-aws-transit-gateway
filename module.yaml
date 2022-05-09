@@ -25,7 +25,11 @@ versions:
       moduleRef:
         id: aws-vpc
         output: vpc_id
-    - name: subnet_ids
+    - name: public_subnet_ids
       moduleRef:
-        id: aws-vpc-subnets
+        id: public-subnets
+        output: subnet_ids
+    - name: private_subnet_ids 
+      moduleRef:
+        id: private-subnets
         output: subnet_ids
