@@ -21,7 +21,39 @@ versions:
           - source: github.com/cloud-native-toolkit/terraform-aws-vpc-subnets
             version: ">= 1.0.0"                
     variables:
-    - name: subnet_ids
-      moduleRef:
+      - name: subnet_priv_ids_edge
+        moduleRef:
         id: aws-vpc-subnets
         output: subnet_ids
+      - name: vpc_id_edge
+        moduleRef:
+        id: aws-vpc
+        output: vpc_id 
+      - name: route_table_priv_ids_edge
+        moduleRef:
+        id: aws-vpc-subnets
+        output: route_table_ids
+      - name: subnet_priv_ids_menage
+        moduleRef:
+        id: aws-vpc-subnets
+        output: subnet_ids
+      - name: vpc_id_menage
+        moduleRef:
+        id: aws-vpc
+        output: vpc_id 
+      - name: route_table_priv_ids_menage
+        moduleRef:
+        id: aws-vpc-subnets
+        output: route_table_ids     
+      - name: subnet_priv_ids_work
+        moduleRef:
+        id: aws-vpc-subnets
+        output: subnet_ids
+      - name: vpc_id_work
+        moduleRef:
+        id: aws-vpc
+        output: vpc_id 
+      - name: route_table_priv_ids_work
+        moduleRef:
+        id: aws-vpc-subnets
+        output: route_table_ids                       
