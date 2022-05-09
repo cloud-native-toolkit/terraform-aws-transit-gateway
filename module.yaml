@@ -21,6 +21,10 @@ versions:
           - source: github.com/cloud-native-toolkit/terraform-aws-vpc-subnets
             version: ">= 1.0.0"                
     variables:
+    - name: vpc_id
+      moduleRef:
+        id: aws-vpc
+        output: vpc_id
     - name: subnet_ids
       moduleRef:
         id: aws-vpc-subnets
