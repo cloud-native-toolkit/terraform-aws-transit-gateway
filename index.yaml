@@ -190,16 +190,6 @@ versions:
       - name: number_subnet_route_work
         default: '9'
         description: Transit Gateway ID
-      - name: subnet_ids
-        type: list(string)
-        description: >-
-          To create cluster in existing VPC, public and private Subnet ids
-          should be given .
-        default:
-          - ''
-        moduleRef:
-          id: aws-vpc-subnets
-          output: subnet_ids
     version: v1.1.0
     outputs:
       - name: transit_gateway_arn
