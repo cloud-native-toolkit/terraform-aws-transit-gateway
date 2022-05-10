@@ -13,7 +13,7 @@ variable "name_prefix" {
 variable "name_gateway" {
   type = string
   default = ""
-  description = "Name of resource  VPN to create"
+  description = "Name of resource  VPN to create."
 }
 variable "default_route_table_association" {
   type        = string
