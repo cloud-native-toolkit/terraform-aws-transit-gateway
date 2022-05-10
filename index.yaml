@@ -466,3 +466,5 @@ versions:
         description: Transit Gateway route identifiers combined with destinations
       - name: subnet_route_ids
         description: Subnet route identifiers combined with destinations
+cloudProvider: aws
+id: github.com/cloud-native-toolkit/terraform-aws-iam-user
