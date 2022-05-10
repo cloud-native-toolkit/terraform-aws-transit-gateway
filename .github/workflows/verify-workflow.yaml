@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         testcase:
-          - aws_rosa
+          - aws_transit
       fail-fast: false
     env:
       HOME: /home/devops
