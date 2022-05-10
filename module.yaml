@@ -1,4 +1,5 @@
 name: aws-transit-gateway
+alias: transit-gateway
 type: terraform
 description: Module to provision vpn service on aws
 cloudProvider: aws
