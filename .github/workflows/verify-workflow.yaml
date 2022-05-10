@@ -1,7 +1,7 @@
 name: Verify Workflow
 
 # Controls when the action will run.
-on:
+on: 
   workflow_call:
     secrets:
         TF_VAR_access_key:
@@ -11,9 +11,9 @@ on:
         AWS_ACCESS_KEY_ID:
           required: true        
         AWS_SECRET_ACCESS_KEY:
-          required: true        
-        # TF_VAR_enabled: 
-        #   required: true
+          required: true   
+        AWS_ROSA_TOKEN:
+          required: true    
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,7 +24,7 @@ jobs:
     strategy:
       matrix:
         testcase:
-          - aws_transit
+          - aws_rosa
       fail-fast: false
     env:
       HOME: /home/devops
@@ -43,6 +43,9 @@ jobs:
           TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          TF_VAR_rosa_token: ${{ secrets.AWS_ROSA_TOKEN }}      
+          ROSA_TOKEN: ${{ secrets.AWS_ROSA_TOKEN }}
+
           #TF_VAR_enabled: ${{ matrix.enabled }}
 
       - name: Verify destroy on ${{ matrix.testcase }}
@@ -55,4 +58,8 @@ jobs:
           TF_VAR_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          TF_VAR_rosa_token: ${{ secrets.AWS_ROSA_TOKEN }}      
+          ROSA_TOKEN: ${{ secrets.AWS_ROSA_TOKEN }}                    
           #TF_VAR_enabled: ${{ matrix.enabled }}
+  
+  
