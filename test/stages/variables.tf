@@ -4,6 +4,15 @@ variable "region" {
   description = "Please set the region where the resouces to be created."
 }
 
+variable "route_to_cidr_blocks" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
+variable "number_subnet_route" {
+  default = 6
+  description = "Transit Gateway ID"
+}
 variable "cloud_provider" {
   type = string
   default = "aws"
@@ -454,6 +463,12 @@ variable "allow_external_principals" {
   type        = bool
   default     = false
   description = "Indicates whether principals outside your organization can be associated with a resource share"
+}
+
+variable "vpc_id" {
+  type        = string
+  default     = ""
+  description = "VPC id for edge."
 }
 
 variable "vpc_attachment_dns_support" {

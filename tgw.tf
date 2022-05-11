@@ -15,39 +15,19 @@ locals {
 
     map = [
        {
-      vpc_id                            = var.vpc_id_edge
+      vpc_id                            = var.vpc_id
       vpc_cidr                          = var.internal_cidr
-      subnet_ids                        = var.subnet_priv_ids_edge
-      subnet_route_table_ids            = var.route_table_priv_ids_edge
-      route_to_cidr_blocks              = [var.internal_cidr_menage, var.internal_cidr_work]
+      subnet_ids                        = var.subnet_priv_ids
+      subnet_route_table_ids            = var.route_table_priv_ids
+      route_to_cidr_blocks              = var.route_to_cidr_blocks
       transit_gateway_vpc_attachment_id = null
-      number_subnet_route = var.number_subnet_route_edge
+      number_subnet_route               = var.number_subnet_route
       static_routes = [
         {
           blackhole              = false
           destination_cidr_block = "0.0.0.0/0"
         }
       ]
-    },
-       {
-      vpc_id                            = var.vpc_id_menage
-      vpc_cidr                          = var.internal_cidr_menage
-      subnet_ids                        = var.subnet_priv_ids_menage
-      subnet_route_table_ids            = var.route_table_priv_ids_menage
-      route_to_cidr_blocks              = [var.internal_cidr, var.internal_cidr_work, "0.0.0.0/0"]
-      transit_gateway_vpc_attachment_id = null
-      number_subnet_route = var.number_subnet_route_menage
-      static_routes = null
-     },
-   {
-      vpc_id                            = var.vpc_id_work
-      vpc_cidr                          = var.internal_cidr_work
-      subnet_ids                        = var.subnet_priv_ids_work
-      subnet_route_table_ids            = var.route_table_priv_ids_work
-      route_to_cidr_blocks              = [var.internal_cidr, var.internal_cidr_menage, "0.0.0.0/0"]
-      transit_gateway_vpc_attachment_id = null
-      number_subnet_route = var.number_subnet_route_work
-      static_routes = null
     }
 
     ]

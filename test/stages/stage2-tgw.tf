@@ -44,18 +44,10 @@
 module "menage_aws_tgw" {
   source = "./module"
   depends_on                  = [module.menage_priv_subnet_rosa, module.work_priv_subnet_rosa, module.edge_pub_subnet_ec2]
-  vpc_id_edge                 = module.dev_vpc.vpc_id
-  vpc_id_menage               = module.menage_vpc.vpc_id
-  vpc_id_work                 = module.work_vpc.vpc_id
-  subnet_priv_ids_edge        = module.edge_priv_subnet_ec2.subnet_ids
-  subnet_priv_ids_menage      = module.menage_priv_subnet_rosa.subnet_ids
-  subnet_priv_ids_work        = module.work_priv_subnet_rosa.subnet_ids
-  route_table_priv_ids_edge   = module.edge_priv_subnet_ec2.route_table_ids
-  route_table_priv_ids_menage = module.menage_priv_subnet_rosa.route_table_ids
-  route_table_priv_ids_work   = module.work_priv_subnet_rosa.route_table_ids
-  internal_cidr_menage        = var.internal_cidr_menage
-  internal_cidr               = var.internal_cidr
-  internal_cidr_work          = var.internal_cidr_work
+  vpc_id                      = module.dev_vpc.vpc_id
+  subnet_priv_ids             = module.edge_priv_subnet_ec2.subnet_ids
+  route_table_priv_ids        = module.edge_priv_subnet_ec2.route_table_ids
+  route_to_cidr_blocks        = var.route_to_cidr_blocks
   resource_group_name         = var.resource_group_name
   name_prefix                 = var.name_prefix
 }
