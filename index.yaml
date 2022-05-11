@@ -371,6 +371,13 @@ versions:
         type: string
         default: ''
         description: cider rage for edge vpc.
+      - name: route_to_cidr_blocks
+        type: list(string)
+        default: [{
+            blackhole              = false
+           destination_cidr_block = "0.0.0.0/0"
+         }]
+        description: trnasit gateway route entry in subnet route table.    
       - name: internal_cidr_work
         type: string
         default: ''
@@ -396,10 +403,6 @@ versions:
       - name: number_subnet_route_edge
         default: '6'
         description: number of rute to add
-      - name: route_to_cidr_blocks
-        type: list(string)
-        default: []
-        description: trnasit gateway route entry in subnet route table.        
     version: v1.2.5
     outputs:
       - name: transit_gateway_arn
