@@ -176,7 +176,7 @@ versions:
         moduleRef:
           id: aws-vpc-subnets
           output: route_table_ids 
-      - name: number_subnet_route_edge
+      - name: number_subnet_route
         default: '6'
         description: number of rute to add
     version: v1.2.5
