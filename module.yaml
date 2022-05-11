@@ -22,9 +22,6 @@ versions:
           - source: github.com/cloud-native-toolkit/terraform-aws-vpc-subnets
             version: ">= 1.0.0"                
     variables:
-        moduleRef:
-        id: aws-vpc-subnets
-        output: route_table_ids     
       - name: subnet_priv_ids
         moduleRef:
         id: aws-vpc-subnets
@@ -36,4 +33,4 @@ versions:
       - name: route_table_priv_ids
         moduleRef:
         id: aws-vpc-subnets
-        output: route_table_ids                       
+        output: route_table_ids
