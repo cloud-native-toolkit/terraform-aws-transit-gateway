@@ -187,3 +187,9 @@ variable "number_subnet_route" {
   default = 6
   description = "Transit Gateway ID"
 }
+
+variable "static_routes" {
+  description = "transit gateway static rule"
+  type        = list(map(string))
+  default = []
+}

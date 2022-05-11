@@ -9,6 +9,16 @@ variable "route_to_cidr_blocks" {
   default     = []
   description = "subnet ids for edge vpc subnets."
 }
+variable "route_to_cidr_blocks_menage" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
+variable "route_to_cidr_blocks_work" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
 variable "number_subnet_route" {
   default = 6
   description = "Transit Gateway ID"
@@ -516,6 +526,12 @@ variable "create_transit_gateway_route_table_association_and_propagation" {
   type        = bool
   default     = true
   description = "Whether to create Transit Gateway Route Table associations and propagations"
+}
+
+variable "static_routes" {
+  description = "transit gateway static rule"
+  type        = list(map(string))
+  default = []
 }
 
 variable "route_keys_enabled" {

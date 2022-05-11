@@ -22,12 +22,13 @@ locals {
       route_to_cidr_blocks              = var.route_to_cidr_blocks
       transit_gateway_vpc_attachment_id = null
       number_subnet_route               = var.number_subnet_route
-      static_routes = [
-        {
-          blackhole              = false
-          destination_cidr_block = "0.0.0.0/0"
-        }
-      ]
+      static_routes = var.static_routes
+      # static_routes = [
+      #   {
+      #     blackhole              = false
+      #     destination_cidr_block = "0.0.0.0/0"
+      #   }
+      # ]
     }
 
     ]
@@ -88,8 +89,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
 
   # transit_gateway_default_route_table_association and transit_gateway_default_route_table_propagation
   # must be set to `false` if the VPC is in the same account as the Transit Gateway, and `null` otherwise
-  transit_gateway_default_route_table_association = data.aws_ec2_transit_gateway.this[0].owner_id == data.aws_vpc.default[count.index].owner_id ? false : null
-  transit_gateway_default_route_table_propagation = data.aws_ec2_transit_gateway.this[0].owner_id == data.aws_vpc.default[count.index].owner_id ? false : null
+  transit_gateway_default_route_table_association = false
+  transit_gateway_default_route_table_propagation = false
 }
 
 # Allow traffic from the VPC attachments to the Transit Gateway
