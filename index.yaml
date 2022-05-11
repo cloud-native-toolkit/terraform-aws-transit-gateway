@@ -92,19 +92,6 @@ versions:
           Whether resource attachments automatically propagate routes to the
           default propagation route table. Valid values: `disable`, `enable`.
           Default value: `enable`
-      - name: existing_transit_gateway_id
-        type: string
-        default: 'null'
-        description: >-
-          Existing Transit Gateway ID. If provided, the module will not create a
-          Transit Gateway but instead will use the existing one
-      - name: existing_transit_gateway_route_table_id
-        type: string
-        default: 'null'
-        description: >-
-          Existing Transit Gateway Route Table ID. If provided, the module will
-          not create a Transit Gateway Route Table but instead will use the
-          existing one
       - name: create_transit_gateway
         type: bool
         default: true
@@ -143,25 +130,17 @@ versions:
       - name: internal_cidr
         type: string
         default: ''
-        description: cider rage for edge vpc.
+        description: cider rage for vpc.
       - name: route_to_cidr_blocks
         type: list(string)
         default: []
       - name: static_routes
         type: list(map(string))
-        default: '[{
+        default: [{
             blackhole              = false
            destination_cidr_block = "0.0.0.0/0"
-         }]'   
+         }]   
         description: trnasit gateway route entry in subnet route table.    
-      - name: internal_cidr_work
-        type: string
-        default: ''
-        description: cider rage for work vpc.
-      - name: internal_cidr_menage
-        type: string
-        default: ''
-        description: cider rage for work vpc.
       - name: subnet_priv_ids
         type: list(string)
         default: []
@@ -175,7 +154,26 @@ versions:
         description: route table ids for all menage vpc subnets.
         moduleRef:
           id: aws-vpc-subnets
-          output: route_table_ids 
+          output: route_table_ids
+      - name: existing_transit_gateway_id
+        type: string
+        default: 'null'
+        description: >-
+          Existing Transit Gateway ID. If provided, the module will not create a
+          Transit Gateway but instead will use the existing one
+        moduleRef:
+          id: aws-transit-gateway
+          output: transit_gateway_id  
+      - name: existing_transit_gateway_route_table_id
+        type: string
+        default: 'null'
+        description: >-
+          Existing Transit Gateway Route Table ID. If provided, the module will
+          not create a Transit Gateway Route Table but instead will use the
+          existing one
+        moduleRef:
+          id: aws-transit-gateway
+          output: transit_gateway_id           
       - name: number_subnet_route
         default: '6'
         description: number of rute to add
