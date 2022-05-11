@@ -4,6 +4,25 @@ variable "region" {
   description = "Please set the region where the resouces to be created."
 }
 
+variable "route_to_cidr_blocks" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
+variable "route_to_cidr_blocks_menage" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
+variable "route_to_cidr_blocks_work" {
+  type        = list(string)
+  default     = []
+  description = "subnet ids for edge vpc subnets."
+}
+variable "number_subnet_route" {
+  default = 6
+  description = "Transit Gateway ID"
+}
 variable "cloud_provider" {
   type = string
   default = "aws"
@@ -456,6 +475,12 @@ variable "allow_external_principals" {
   description = "Indicates whether principals outside your organization can be associated with a resource share"
 }
 
+variable "vpc_id" {
+  type        = string
+  default     = ""
+  description = "VPC id for edge."
+}
+
 variable "vpc_attachment_dns_support" {
   type        = string
   default     = "enable"
@@ -501,6 +526,12 @@ variable "create_transit_gateway_route_table_association_and_propagation" {
   type        = bool
   default     = true
   description = "Whether to create Transit Gateway Route Table associations and propagations"
+}
+
+variable "static_routes" {
+  description = "transit gateway static rule"
+  type        = list(map(string))
+  default = []
 }
 
 variable "route_keys_enabled" {

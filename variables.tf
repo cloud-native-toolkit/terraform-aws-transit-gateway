@@ -130,7 +130,7 @@ variable "transit_gateway_description" {
   description = "Transit Gateway description."
 }
 
-variable "vpc_id_edge" {
+variable "vpc_id" {
   type        = string
   default     = ""
   description = "VPC id for edge."
@@ -166,51 +166,30 @@ variable "internal_cidr_menage" {
   description = "cider rage for work vpc."
 }
 
-variable "subnet_priv_ids_edge" {
+variable "subnet_priv_ids" {
   type        = list(string)
   default     = []
   description = "subnet ids for edge vpc subnets."
 }
-variable "subnet_priv_ids_menage" {
+
+variable "route_to_cidr_blocks" {
   type        = list(string)
   default     = []
-  description = "subnet ids for menage vpc subnets."
+  description = "subnet ids for edge vpc subnets."
 }
 
-variable "subnet_priv_ids_work" {
-  type        = list(string)
-  default     = []
-  description = "subnet ids for work vpc subnets."
-}
-
-variable "route_table_priv_ids_edge" {
+variable "route_table_priv_ids" {
   type        = list(string)
   default     = []
   description = "route table ids for all edge vpc subnets."
 }
-variable "route_table_priv_ids_work" {
-  type        = list(string)
-  default     = []
-  description = "route table ids for all work vpc subnets."
-}
-
-variable "route_table_priv_ids_menage" {
-  type        = list(string)
-  default     = []
-  description = "route table ids for all menage vpc subnets."
-}
-
-variable "number_subnet_route_edge" {
+variable "number_subnet_route" {
   default = 6
   description = "Transit Gateway ID"
 }
 
-variable "number_subnet_route_menage" {
-  default = 9
-  description = "Transit Gateway ID"
-}
-
-variable "number_subnet_route_work" {
-  default = 9
-  description = "Transit Gateway ID"
+variable "static_routes" {
+  description = "transit gateway static rule"
+  type        = list(map(string))
+  default = []
 }
