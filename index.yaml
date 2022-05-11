@@ -360,24 +360,10 @@ versions:
         type: string
         default: tgw for rosa adbance cluster
         description: Transit Gateway description.
-      - name: vpc_id_edge
+      - name: vpc_id
         type: string
         default: ''
-        description: VPC id for edge.
-        moduleRef:
-          id: aws-vpc
-          output: vpc_id
-      - name: vpc_id_menage
-        type: string
-        default: ''
-        description: VPC id for menage.
-        moduleRef:
-          id: aws-vpc
-          output: vpc_id
-      - name: vpc_id_work
-        type: string
-        default: ''
-        description: VPC id for edge.
+        description: VPC id.
         moduleRef:
           id: aws-vpc
           output: vpc_id
@@ -393,42 +379,14 @@ versions:
         type: string
         default: ''
         description: cider rage for work vpc.
-      - name: subnet_priv_ids_edge
-        type: list(string)
-        default: []
-        description: subnet ids for edge vpc subnets.
-        moduleRef:
-          id: aws-vpc-subnets
-          output: subnet_ids
-      - name: subnet_priv_ids_menage
-        type: list(string)
-        default: []
-        description: subnet ids for menage vpc subnets.
-        moduleRef:
-          id: aws-vpc-subnets
-          output: subnet_ids
-      - name: subnet_priv_ids_work
+      - name: subnet_priv_ids
         type: list(string)
         default: []
         description: subnet ids for work vpc subnets.
         moduleRef:
           id: aws-vpc-subnets
           output: subnet_ids
-      - name: route_table_priv_ids_edge
-        type: list(string)
-        default: []
-        description: route table ids for all edge vpc subnets.
-        moduleRef:
-          id: aws-vpc-subnets
-          output: route_table_ids 
-      - name: route_table_priv_ids_work
-        type: list(string)
-        default: []
-        description: route table ids for all work vpc subnets.
-        moduleRef:
-          id: aws-vpc-subnets
-          output: route_table_ids 
-      - name: route_table_priv_ids_menage
+      - name: route_table_priv_ids
         type: list(string)
         default: []
         description: route table ids for all menage vpc subnets.
@@ -437,13 +395,11 @@ versions:
           output: route_table_ids 
       - name: number_subnet_route_edge
         default: '6'
-        description: Transit Gateway ID
-      - name: number_subnet_route_menage
-        default: '9'
-        description: Transit Gateway ID
-      - name: number_subnet_route_work
-        default: '9'
-        description: Transit Gateway ID
+        description: number of rute to add
+      - name: route_to_cidr_blocks
+        type: list(string)
+        default: []
+        description: trnasit gateway route entry in subnet route table.        
     version: v1.2.5
     outputs:
       - name: transit_gateway_arn
