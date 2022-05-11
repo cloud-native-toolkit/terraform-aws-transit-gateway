@@ -70,6 +70,12 @@ versions:
         description: >-
           Indicates whether principals outside your organization can be
           associated with a resource share
+      - name: static_routes
+        type: list(map(string))
+        default: '[{
+            blackhole              = false
+           destination_cidr_block = "0.0.0.0/0"
+         }]'    
       - name: vpc_attachment_appliance_mode_support
         type: string
         default: disable
