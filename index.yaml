@@ -177,7 +177,7 @@ versions:
           existing one
         moduleRef:
           id: aws-transit-gateway
-          output: transit_gateway_id           
+          output: transit_gateway_route_table_id           
       - name: number_subnet_route
         default: '6'
         description: number of rute to add
