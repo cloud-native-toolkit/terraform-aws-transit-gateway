@@ -74,7 +74,7 @@ data "aws_vpc" "default" {
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
   # for_each               = var.create_transit_gateway_vpc_attachment && tolist(local.map) != null ? tolist(local.map) : []
-  count = length(local.map)
+  count = var.tgw_route_table_association ? length(local.map) : 0
   transit_gateway_id     = local.transit_gateway_id
   vpc_id                 = local.map[count.index]["vpc_id"]
   subnet_ids             = local.map[count.index]["subnet_ids"]
@@ -96,7 +96,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "default" {
 # Allow traffic from the VPC attachments to the Transit Gateway
 resource "aws_ec2_transit_gateway_route_table_association" "default" {
   # for_each                       = var.create_transit_gateway_route_table_association_and_propagation && tolist(local.map) != null ? tolist(local.map) : []
-  count = length(local.map)
+  count = var.tgw_route_table_association ? length(local.map) : 0
   transit_gateway_attachment_id  = local.map[count.index]["transit_gateway_vpc_attachment_id"] != null ? local.map[count.index]["transit_gateway_vpc_attachment_id"] : aws_ec2_transit_gateway_vpc_attachment.default[count.index]["id"]
   transit_gateway_route_table_id = local.transit_gateway_route_table_id
 }
@@ -105,7 +105,7 @@ resource "aws_ec2_transit_gateway_route_table_association" "default" {
 
 resource "aws_ec2_transit_gateway_route_table_propagation" "default" {
   # for_each                       = var.create_transit_gateway_route_table_association_and_propagation && tolist(local.map) != null ? tolist(local.map) : []
-  count = length(local.map)
+  count = var.tgw_route_table_association ? length(local.map) : 0
   transit_gateway_attachment_id  = local.map[count.index]["transit_gateway_vpc_attachment_id"] != null ? local.map[count.index]["transit_gateway_vpc_attachment_id"] : aws_ec2_transit_gateway_vpc_attachment.default[count.index]["id"]
   transit_gateway_route_table_id = local.transit_gateway_route_table_id
 }
@@ -115,7 +115,7 @@ resource "aws_ec2_transit_gateway_route_table_propagation" "default" {
 module "transit_gateway_route" {
   source                         = "./route-tg"
   # for_each                       = var.create_transit_gateway_route_table_association_and_propagation && tolist(local.map) != null ? tolist(local.map) : []
-  count = length(local.map)
+  count = (var.tgw_route_table_association && length(local.map) > 0 ) ? length(local.map) : 0
   transit_gateway_attachment_id  = local.map[count.index]["transit_gateway_vpc_attachment_id"] != null ? local.map[count.index]["transit_gateway_vpc_attachment_id"] : aws_ec2_transit_gateway_vpc_attachment.default[count.index]["id"]
   transit_gateway_route_table_id = local.transit_gateway_route_table_id
   route_config                   = local.map[count.index]["static_routes"] != null ? local.map[count.index]["static_routes"] : []
