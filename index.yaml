@@ -1,0 +1,209 @@
+name: aws-transit-gateway
+type: terraform
+description: Module to provision vpn service on aws
+tags:
+  - infrastructure
+  - networking
+  - aws
+versions:
+  - platforms: []
+    providers:
+      - name: aws
+        source: hashicorp/aws
+    dependencies:
+      - id: aws-vpc
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-aws-vpc
+            version: '>= 1.0.0'
+      - id: aws-vpc-subnets
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-aws-vpc-subnets
+            version: '>= 1.0.0'
+      - id: aws-transit-gateway
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-aws-transit-gateway
+            version: '>= 1.0.0'      
+    variables:
+      - name: resource_group_name
+        type: string
+        description: >-
+          The name of the resource group where the VPC is deployed. On AWS this
+          value becomes a tag.
+        default: default
+      - name: name_prefix
+        type: string
+        description: >-
+          Prefix to be added to the names of resources which are being
+          provisioned
+        default: ''
+      - name: name_gateway
+        type: string
+        default: ''
+        description: Name of resource  VPN to create
+      - name: default_route_table_association
+        type: string
+        default: disable
+        description: >-
+          Whether resource attachments are automatically associated with the
+          default association route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: default_route_table_propagation
+        type: string
+        default: disable
+        description: >-
+          Whether resource attachments automatically propagate routes to the
+          default propagation route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: dns_support
+        type: string
+        default: enable
+        description: >-
+          Whether resource attachments automatically propagate routes to the
+          default propagation route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: vpn_ecmp_support
+        type: string
+        default: enable
+        description: >-
+          Whether resource attachments automatically propagate routes to the
+          default propagation route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: allow_external_principals
+        type: bool
+        default: false
+        description: >-
+          Indicates whether principals outside your organization can be
+          associated with a resource share
+      - name: vpc_attachment_appliance_mode_support
+        type: string
+        default: disable
+        description: >-
+          Whether Appliance Mode support is enabled. If enabled, a traffic flow
+          between a source and destination uses the same Availability Zone for
+          the VPC attachment for the lifetime of that flow. Valid values:
+          `disable`, `enable`
+      - name: vpc_attachment_dns_support
+        type: string
+        default: enable
+        description: >-
+          Whether resource attachments automatically propagate routes to the
+          default propagation route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: vpc_attachment_ipv6_support
+        type: string
+        default: disable
+        description: >-
+          Whether resource attachments automatically propagate routes to the
+          default propagation route table. Valid values: `disable`, `enable`.
+          Default value: `enable`
+      - name: create_transit_gateway
+        type: bool
+        default: true
+        description: >-
+          Whether to create a Transit Gateway. If set to `false`, an existing
+          Transit Gateway ID must be provided in the variable
+          `existing_transit_gateway_id`
+      - name: create_transit_gateway_route_table
+        type: bool
+        default: true
+        description: >-
+          Whether to create a Transit Gateway Route Table. If set to `false`, an
+          existing Transit Gateway Route Table ID must be provided in the
+          variable `existing_transit_gateway_route_table_id`
+      - name: create_transit_gateway_vpc_attachment
+        type: bool
+        default: true
+        description: Whether to create Transit Gateway VPC Attachments
+      - name: create_transit_gateway_route_table_association_and_propagation
+        type: bool
+        default: true
+        description: >-
+          Whether to create Transit Gateway Route Table associations and
+          propagations
+      - name: transit_gateway_description
+        type: string
+        default: tgw for rosa adbance cluster
+        description: Transit Gateway description.
+      - name: vpc_id
+        type: string
+        default: ''
+        description: VPC id.
+        moduleRef:
+          id: aws-vpc
+          output: vpc_id
+      - name: internal_cidr
+        type: string
+        default: ''
+        description: cider rage for vpc.
+      - name: route_to_cidr_blocks
+        type: list(string)
+        default: []
+      - name: static_routes
+        type: |-
+          list(object({
+          blackhole=string,
+          destination_cidr_block=string }))
+        default: '[]'
+        description: trnasit gateway route entry in subnet route table.    
+      - name: subnet_priv_ids
+        type: list(string)
+        default: []
+        description: subnet ids for work vpc subnets.
+        moduleRef:
+          id: aws-vpc-subnets
+          output: subnet_ids
+      - name: route_table_priv_ids
+        type: list(string)
+        default: []
+        description: route table ids for all menage vpc subnets.
+        moduleRef:
+          id: aws-vpc-subnets
+          output: route_table_ids
+      - name: existing_transit_gateway_id
+        type: string
+        default: 'null'
+        description: >-
+          Existing Transit Gateway ID. If provided, the module will not create a
+          Transit Gateway but instead will use the existing one
+        moduleRef:
+          id: aws-transit-gateway
+          output: transit_gateway_id  
+      - name: existing_transit_gateway_route_table_id
+        type: string
+        default: 'null'
+        description: >-
+          Existing Transit Gateway Route Table ID. If provided, the module will
+          not create a Transit Gateway Route Table but instead will use the
+          existing one
+        moduleRef:
+          id: aws-transit-gateway
+          output: transit_gateway_route_table_id           
+      - name: number_subnet_route
+        default: '6'
+        description: number of rute to add
+      - name: tgw_route_table_association
+        type: bool
+        default: true
+        description: >-
+          Indicates whether you want to associate vpc with a route table 
+    version: v1.3.0
+    outputs:
+      - name: transit_gateway_arn
+        description: Transit Gateway ARN
+      - name: transit_gateway_id
+        description: Transit Gateway ID
+      - name: transit_gateway_route_table_id
+        description: Transit Gateway route table ID
+      - name: transit_gateway_association_default_route_table_id
+        description: Transit Gateway association default route table ID
+      - name: transit_gateway_propagation_default_route_table_id
+        description: Transit Gateway propagation default route table ID
+      - name: transit_gateway_vpc_attachment_ids
+        description: Transit Gateway VPC attachment IDs
+      - name: transit_gateway_route_ids
+        description: Transit Gateway route identifiers combined with destinations
+      - name: subnet_route_ids
+        description: Subnet route identifiers combined with destinations
+cloudProvider: aws
+id: github.com/cloud-native-toolkit/terraform-aws-transit-gateway
+alias: transit-gateway
