@@ -98,14 +98,14 @@ versions:
           Default value: `enable`
       - name: create_transit_gateway
         type: bool
-        default: true
+        default: false
         description: >-
           Whether to create a Transit Gateway. If set to `false`, an existing
           Transit Gateway ID must be provided in the variable
           `existing_transit_gateway_id`
       - name: create_transit_gateway_route_table
         type: bool
-        default: true
+        default: false
         description: >-
           Whether to create a Transit Gateway Route Table. If set to `false`, an
           existing Transit Gateway Route Table ID must be provided in the
@@ -132,7 +132,7 @@ versions:
           id: aws-vpc
           output: vpc_id
       - name: internal_cidr
-        type: string
+        type: stringtgw_route_table_association
         default: ''
         description: cider rage for vpc.
       - name: route_to_cidr_blocks
@@ -143,7 +143,10 @@ versions:
           list(object({
           blackhole=string,
           destination_cidr_block=string }))
-        default: '[]'
+        default: '[{
+            blackhole              = false
+           destination_cidr_block = "0.0.0.0/0"
+         }]'
         description: trnasit gateway route entry in subnet route table.    
       - name: subnet_priv_ids
         type: list(string)
