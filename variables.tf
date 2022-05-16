@@ -75,22 +75,26 @@ variable "existing_transit_gateway_route_table_id" {
   default     = null
   description = "Existing Transit Gateway Route Table ID. If provided, the module will not create a Transit Gateway Route Table but instead will use the existing one"
 }
-
-variable "create_transit_gateway" {
+variable "tgw_route_table_association" {
   type        = bool
   default     = true
+  description = "Whether to create a Transit Gateway. If set to `false`, an existing Transit Gateway ID must be provided in the variable `existing_transit_gateway_id`"
+}
+variable "create_transit_gateway" {
+  type        = bool
+  default     = false
   description = "Whether to create a Transit Gateway. If set to `false`, an existing Transit Gateway ID must be provided in the variable `existing_transit_gateway_id`"
 }
 
 variable "create_transit_gateway_route_table" {
   type        = bool
-  default     = true
+  default     = false
   description = "Whether to create a Transit Gateway Route Table. If set to `false`, an existing Transit Gateway Route Table ID must be provided in the variable `existing_transit_gateway_route_table_id`"
 }
 
 variable "create_transit_gateway_vpc_attachment" {
   type        = bool
-  default     = true
+  default     = false
   description = "Whether to create Transit Gateway VPC Attachments"
 }
 
@@ -189,7 +193,16 @@ variable "number_subnet_route" {
 }
 
 variable "static_routes" {
-  description = "transit gateway static rule"
-  type        = list(map(string))
+  type        = list(object({
+    blackhole = string
+    destination_cidr_block    = string
+  }))
   default = []
+  description = "List of subnets with labels"
+}
+
+variable "route_table_association" {
+  type        = bool
+  default     = true
+  description = "Indicates whether you want to  associate vpc with a route table"
 }
