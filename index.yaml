@@ -141,12 +141,9 @@ versions:
       - name: static_routes
         type: |-
           list(object({
-          blackhole=string,
+          blackhole=bool,
           destination_cidr_block=string }))
-        default: '[{
-            blackhole              = false
-           destination_cidr_block = "0.0.0.0/0"
-         }]'
+        default: '[]'
         description: trnasit gateway route entry in subnet route table.    
       - name: subnet_priv_ids
         type: list(string)
